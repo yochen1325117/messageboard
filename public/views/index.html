@@ -2,20 +2,77 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>        
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <script src="../javascript/main.js"></script>
+    <!-- <script src="../javascript/main.js"></script> -->
     
 </head>
 <body>
     <p>留言板</p>
-    <div class='board'>
+    <form name='message_form' id='message_form' method='POST', action='/' onsubmit=" return datapost()">
 
+    <div class='board'>
     </div>
     <p>輸入區</p>
-    <form>
-        <input type='text' id='author'>作者
-        <input type='text' id='email'>e-mail      
-        <input id='write' type='text'>
-        <input id='message_submit' type='button' value='送出'>
+    <h5 name = 'send_author' value id='send_author'></h5>
+        作者:<input type='text' id='author' name='author'>
+        e-mail :<input type='text' id='email' name='email'>     
+        <input id='write' type='text' name='write'>
+        <input id='message_submit' value='送出' type='submit'>
     </form>
+
+    <script>
+
+        function datapost(){
+            var write = document.getElementById('write').value;
+            var author = document.getElementById('author').value;
+            var email = document.getElementById('email').value;
+            var date = new Date()+''
+            date =date.split(' ');
+
+            data={write,author,email,date}
+            data.write = write
+            data.author=author
+            data.email=email
+            data.date=date[4]
+            $.ajax({
+        url:'/',
+        type:'post',
+        data:data,
+        success: function(){
+            AppendToboard();
+        }
+    })
+    return false
+
+        }
+
+
+        function AppendToboard()
+    {
+        $("<span/>", {
+            'class':'author_name',
+            "id": 1,
+            "text":'留言者:'+data.author+'\n'
+          }).appendTo(".board");
+        $("<span/>", {
+            'class':'author_email',
+            "id": 'author_email',
+            "text":'\ne-mail:'+data.email
+          }).appendTo(".board");
+        $("<p/>", {
+            'class':'author_message',
+            "id": 'author_write',
+            "text":'內容:'+data.write
+          }).appendTo(".board");
+          $("<p/>", {
+            "text":'時間:'+data.date
+          }).appendTo(".board");
+        $("<div/>", {
+            "class": 'message_div',
+          }).appendTo(".board");
+    }
+
+    
+    </script>
+
 
 </body>
