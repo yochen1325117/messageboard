@@ -21,10 +21,7 @@ app.get("/",function(req,res,next){
 
 app.post("/",function(req,res,next){
     if(email_check(req.body.email)==true){
-
         res.render('index');
-        
-
     }
 
 });

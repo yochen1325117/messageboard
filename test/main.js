@@ -14,10 +14,5 @@ describe('test_email',()=>{
       })
 })
 
+process.exitCode
 
-
-// describe('check e-mail',()=>{
-//     it('shoule return email', () => {
-//         assert(index.email_check(1) === 1);
-//       })
-// })
